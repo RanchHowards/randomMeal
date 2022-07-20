@@ -1,25 +1,24 @@
 import { Meal } from "./Meal";
 
-const mealContainer = document?.getElementById("meal");
-const button = document.querySelector("button");
+const mealContainer = <HTMLDivElement>document.getElementById("meal");
+const button = <HTMLButtonElement>document.querySelector("button");
 
 function makeMeal(meal: Meal) {
-  if (mealContainer) {
-    const chunkedInstructions = meal.strInstructions
-      .split("\n")
-      .filter((step) => step !== "\r")
-      .filter((step) => !step.includes("STEP"));
+  const chunkedInstructions = meal.strInstructions
+    .split("\n")
+    .filter((step) => step !== "\r")
+    .filter((step) => !step.includes("STEP"));
 
-    const ingredientsArray = [];
-    for (let i = 0; i < 21; i += 1) {
-      const ingredientKey = `strIngredient${i}` as keyof Meal;
-      const measureKey = `strMeasure${i}` as keyof Meal;
-      if (meal[ingredientKey]) {
-        ingredientsArray.push(`${meal[ingredientKey]} - ${meal[measureKey]}`);
-      }
+  const ingredientsArray = [];
+  for (let i = 0; i < 21; i += 1) {
+    const ingredientKey = `strIngredient${i}` as keyof Meal;
+    const measureKey = `strMeasure${i}` as keyof Meal;
+    if (meal[ingredientKey]) {
+      ingredientsArray.push(`${meal[ingredientKey]} - ${meal[measureKey]}`);
     }
+  }
 
-    mealContainer.innerHTML = `
+  mealContainer.innerHTML = `
     <h1>${meal.strMeal}</h1>
     <div class='pictureIngredientsContainer'>
       <img src=${meal.strMealThumb}></img>
@@ -30,7 +29,6 @@ function makeMeal(meal: Meal) {
     <ol>${chunkedInstructions.map((step) => `<li>${step}</li>`).join("")}
     </ol>
     `;
-  }
 }
 
 async function fetchMeal() {
@@ -42,8 +40,8 @@ async function fetchMeal() {
   const meal: Meal = mealData.meals[0];
   makeMeal(meal);
 }
-button?.addEventListener("click", () => {
-  if (!button.classList.contains("more-food")) {
+button.addEventListener("click", () => {
+  if (button.classList.contains("more-food")) {
     document.querySelector("body")?.classList.remove("starting-display");
     button.classList.add("more-food");
     button.innerText = "MORE FOOD!";
