@@ -33,12 +33,29 @@ button:hover {
   font-size: 60px;
 }
 
-img {
+.pictureWrapper {
   border: black 1rem solid;
-  margin: auto auto;
+  margin-right: 2em;
   max-width: 400px;
-  max-height: 100%;
+  max-height: 400px;
+}
+img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 .pictureIngredientsContainer {
   display: flex;
+  justify-content: center;
+  flex: 1 1 auto;
+}
+.instructions {
+  margin-top: 1em;
+}
+#meal {
+  width: 60%;
+}
+
+ol {
+  padding-inline-start: 0;
 }

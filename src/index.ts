@@ -21,12 +21,16 @@ function makeMeal(meal: Meal) {
   mealContainer.innerHTML = `
     <h1>${meal.strMeal}</h1>
     <div class='pictureIngredientsContainer'>
+      <div class='pictureWrapper'>
       <img src=${meal.strMealThumb}></img>
+      </div>
       <ul>${ingredientsArray
         .map((ingredient) => `<li>${ingredient}</li>`)
         .join("")}</ul>
     </div>
-    <ol>${chunkedInstructions.map((step) => `<li>${step}</li>`).join("")}
+    <ol class='instructions'>${chunkedInstructions
+      .map((step) => `<li>${step}</li>`)
+      .join("")}
     </ol>
     `;
 }
@@ -41,7 +45,7 @@ async function fetchMeal() {
   makeMeal(meal);
 }
 button.addEventListener("click", () => {
-  if (button.classList.contains("more-food")) {
+  if (document.querySelector("body")?.classList.contains("starting-display")) {
     document.querySelector("body")?.classList.remove("starting-display");
     button.classList.add("more-food");
     button.innerText = "MORE FOOD!";
